@@ -30,6 +30,7 @@ psql -d news -f newsdata.sql
 ```bash
 psql -d news 
 ```
+
 > The “newsdata.sql” has three different tables: 
 1. Authors: table includes information about the authors of articles. 
 2. Articles: table includes the articles themselves. 
