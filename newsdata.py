@@ -1,4 +1,4 @@
-# "Database code" for the DB Forum.
+
 
 import psycopg2
 
