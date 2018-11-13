@@ -1,4 +1,4 @@
-
+#!/usr/bin/env python3
 
 import psycopg2
 
@@ -44,8 +44,9 @@ def get_all_days_did_more_than_1_of_requests_lead_to_errors():
     """than 1% of requests lead to errors."""
     db = psycopg2.connect("dbname=news")
     c = db.cursor()
-    c.execute("select * from (select total.day, round(cast((error.hits*100) "
-              "as numeric) /cast(total.hits as numeric), 3) as errors from "
+    c.execute("SELECT TO_CHAR(ans.day, 'Mon DD, YYYY')\"day\" ,errors from"
+              " (select total.day, round(cast((error.hits*100) as numeric) "
+              "/cast(total.hits as numeric), 3) as errors from "
               "(select date(time) as day,count(*) as hits from log group by "
               "day) as total inner join (select date(time) as day, count(*) "
               "as hits from log where status = '404 NOT FOUND' group by day) "
@@ -59,6 +60,7 @@ def get_all_days_did_more_than_1_of_requests_lead_to_errors():
               count=day[1]))
     print()
     return
+
 
 if __name__ == "__main__":
     get_most_popular_three_articles()
